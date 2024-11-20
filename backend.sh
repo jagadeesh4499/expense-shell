@@ -50,3 +50,4 @@ cd /app
 rm -rf /app/*   #removing the existing code
 unzip /tmp/backend.zip &>>LOG_FILE
 VALIDATE $? "Extracting backend code"
+npm install &>>$LOG_FILE

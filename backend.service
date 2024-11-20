@@ -3,7 +3,7 @@ Description = Backend Service
 
 [Service]
 User=expense
-Environment=DB_HOST="172.31.33.246" #In future use DNS (mysql.jagadeesh.online) in the place of IP Address
+Environment=DB_HOST="172.31.21.25" #In future use DNS (mysql.jagadeesh.online) in the place of IP Address
 ExecStart=/bin/node /app/index.js
 SyslogIdentifier=backend
 

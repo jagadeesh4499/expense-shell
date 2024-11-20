@@ -34,7 +34,7 @@ VALIDATE $? "Enabled Mysql"
 systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "Started Mysql"
 #In future use DNS (mysql.jagadeesh.online) in the place of IP Address
-mysql -h 172.31.45.29 -u root -p<password> -e 'show databases;' &>>LOG_FILE
+mysql -h 172.31.45.29 -u root -pExpenseApp@1 -e 'show databases;' &>>LOG_FILE
 if [ $? -ne 0 ]
 then
     mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE

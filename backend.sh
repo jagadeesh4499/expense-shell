@@ -27,19 +27,3 @@ VALIDATE(){
 }
 echo "Script started exceuting at : $(date)" | tee -a $LOG_FILE
 CHECK_ROOT
-dnf install mysql-server -y &>>$LOG_FILE
-VALIDATE $? "Mysql installation"
-systemctl enable mysqld &>>$LOG_FILE
-VALIDATE $? "Enabled Mysql"
-systemctl start mysqld &>>$LOG_FILE
-VALIDATE $? "Started Mysql"
-#In future use DNS (mysql.jagadeesh.online) in the place of IP Address
-mysql -h 172.31.45.29 -u root -pExpenseApp@1 -e 'show databases;' &>>LOG_FILE
-if [ $? -ne 0 ]
-then
-    echo "Mysql password is not setup....setting now" &>>$LOG_FILE
-    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
-    VALIDATE $? "Setting up root Password"
-else
-    echo -e "MysQl root is  already setup.....$Y SKIPPING $N" | tee -a $LOG_FILE
-fi

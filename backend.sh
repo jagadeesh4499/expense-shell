@@ -51,3 +51,16 @@ rm -rf /app/*   #removing the existing code
 unzip /tmp/backend.zip &>>LOG_FILE
 VALIDATE $? "Extracting backend code"
 npm install &>>$LOG_FILE
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+#load the data before running backend service
+dnf install mysql -y &>>$LOG_FILE
+VALIDATE $? "MySql Client Installation"
+#In future use DNS (mysql.jagadeesh.online) in the place of IP Address
+mysql -h 172.31.33.246 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+VALIDATE $? "Schema Loading"
+systemctl daemon-reload &>>$LOG_FILE
+VALIDATE $? "Daemon reload"
+systemctl enable backend &>>$LOG_FILE
+VALIDATE $? "Enabling backend"
+systemctl restart backend &>>$LOG_FILE
+VALIDATE $? "Restarting backend"
